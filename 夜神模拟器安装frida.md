@@ -23,7 +23,7 @@ https://github.com/frida/frida/releases
 下载对应版本即可：frida-server-xx.x.xx-android-platform.xz
 #### 4.将下载好的文件传到模拟器
 ```python
-adb  push  frida-server-12.6.12-android-arm64  /data/loacl
+adb  push  frida-server-12.6.12-android-arm64  /data/loacl/tmp
 ```
 
 #### 5.运行
