@@ -5,19 +5,18 @@ import sys
 
 def on_message(message, data):
 	if message['type'] == 'send':
-		base = message['payload']['base']
-		size = int(message['payload']['size'])
-		print(hex(base), size)
+		try:
+			print(json.dumps(json.loads(message['payload'].encode('utf8')), sort_keys=True, indent=4, separators=(', ', ': '), ensure_ascii=False))
+		except:
+			print("[*] {0}".format(message['payload']))
+			base = message['payload']['base']
+			size = int(message['payload']['size'])
+			print(hex(base), size)
 		# print session
 		# dex_bytes = session.read_bytes(base, size)
 		# f = open("1.dex","wb")
 		# f.write(dex_bytes)
 		# f.close()
-
-		# MI6X 9.0	_ZN3art16ArtDexFileLoader10OpenCommonEPKhmS2_mRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPKNS_10OatDexFileEbbPS9_NS3_10unique_ptrINS_16DexFileContainerENS3_14default_deleteISH_EEEEPNS_13DexFileLoader12VerifyResultE
-		# 9.0 arm 需要拦截　_ZN3art13DexFileLoader10OpenCommonEPKhjS2_jRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPKNS_10OatDexFileEbbPS9_NS3_10unique_ptrINS_16DexFileContainerENS3_14default_deleteISH_EEEEPNS0_12VerifyResultE
-		# 7.0 arm：_ZN3art7DexFile10OpenMemoryEPKhjRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPNS_6MemMapEPKNS_10OatDexFileEPS9_
-		# 红米4A 6.0.1 arm: _ZN3art7DexFile10OpenMemoryEPKhmRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPNS_6MemMapEPKNS_10OatDexFileEPS9_	address:0x7f9ee7adf0
 	elif message['type'] == 'error':
 		for i in message:
 			if i == "type":
@@ -30,6 +29,10 @@ def on_message(message, data):
 	else:
 		print(message)
 
+	# MI6X 9.0	_ZN3art16ArtDexFileLoader10OpenCommonEPKhmS2_mRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPKNS_10OatDexFileEbbPS9_NS3_10unique_ptrINS_16DexFileContainerENS3_14default_deleteISH_EEEEPNS_13DexFileLoader12VerifyResultE
+	# 9.0 arm 需要拦截　_ZN3art13DexFileLoader10OpenCommonEPKhjS2_jRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPKNS_10OatDexFileEbbPS9_NS3_10unique_ptrINS_16DexFileContainerENS3_14default_deleteISH_EEEEPNS0_12VerifyResultE
+	# 7.0 arm：_ZN3art7DexFile10OpenMemoryEPKhjRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPNS_6MemMapEPKNS_10OatDexFileEPS9_
+	# 红米4A 6.0.1 arm: _ZN3art7DexFile10OpenMemoryEPKhmRKNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEjPNS_6MemMapEPKNS_10OatDexFileEPS9_	address:0x7f9ee7adf0
 package = sys.argv[1]
 print("dex 导出目录为: /data/data/%s"%(package))
 device = frida.get_usb_device()
