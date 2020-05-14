@@ -29,7 +29,7 @@ adb  push  frida-server-12.6.12-android-arm64  /data/loacl/tmp
 #### 5.运行
 ```python
 adb shell
-cd /data/local
+cd /data/local/tmp
 chmod +x frida-server-12.4.0-android-arm
 ./frida-server-12.4.0-android-arm
 ```
