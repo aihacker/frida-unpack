@@ -1,13 +1,22 @@
 ## 夜神模拟器安装frida
 
 ### 安装frida
->
+> 发现新方法：
 > 开始 python3.7 直接 pip install frida 和 pip install frida-tools一直卡在 Running setup.py install for frida ... – 了，最后的解决好的办法是到 https://pypi.org/project/frida/#files 下载 frida-xx.x.xx-py3.7-win-amd64.egg，并把它放到安装的python目录的 \Python37\Lib\site-packages 中。
-
+> 
 > 然后找到对应的 frida-tools 版本pip3 install frida-tools执行即可安装，如果不对应，执行命令可能会把frida-xx.x.xx-py3.7-win-amd64.egg删掉又卡在Running setup.py install for frida ... –地方，可以根据发布日期来判断相应的 frida-tools 版本。
-
+> 
 > 然后 python3.7 安装 easy_install，执行easy_install frida-xx.x.xx-py3.7-win-amd64.egg，即可在 python 中 import frida了。
+>
+> 我在安装frida时候发现一直失败超时，最后使用如下方法解决：
+```shell
+解决办法：
+python -m pip install --upgrade pip --default-time=1000
 
+socket.timeout: The read operation timed out
+
+参考：https://blog.csdn.net/hahaxq/article/details/104120025
+```
 
 查看对应手机的cpu版本
 ```shell
